@@ -9,7 +9,9 @@ import os
 import platform
 import re
 
+#聊天室链接
 CHATINFOURL = 'http://riven.panda.tv/chatroom/getinfo?roomid='
+#忽略错误长度
 IGNORE_LEN = 12
 META_LEN = 4
 CHECK_LEN = 4
@@ -18,13 +20,20 @@ FIRST_RPS = b'\x00\x06\x00\x06'
 KEEPALIVE = b'\x00\x06\x00\x00'
 RECVMSG = b'\x00\x06\x00\x03'
 DANMU_TYPE = '1'
+#竹子类型
 BAMBOO_TYPE = '206'
+#观众类型
 AUDIENCE_TYPE = '207'
+#土豪类型
 TU_HAO_TYPE = '306'
+#获取操作系统类型
 SYSINFO = platform.system()
 INIT_PROPERTIES = 'init.properties'
+#管理员
 MANAGER = '60'
+#超级管理员
 SP_MANAGER = '120'
+#主播
 HOSTER = '90'
 
 
@@ -64,7 +73,8 @@ def getChatInfo(roomid):
         authtype = str(chatInfo['data']['authType']).encode('utf-8')
         sign     = str(chatInfo['data']['sign']).encode('utf-8')
         ts       = str(chatInfo['data']['ts']).encode('utf-8')
-        msg  = b'u:' + rid + b'@' + appid + b'\nk:1\nt:300\nts:' + ts + b'\nsign:' + sign + b'\nauthtype:' + authtype
+        msg  = b'u:' + rid + b'@' + appid + b'\nk:1\nt:300\nts:' + ts \
+               + b'\nsign:' + sign + b'\nauthtype:' + authtype
         msgLen = len(msg)
         sendMsg = FIRST_REQ + int.to_bytes(msgLen, 2, 'big') + msg
         s.sendall(sendMsg)
